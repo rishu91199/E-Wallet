@@ -1,7 +1,10 @@
 package com.capgemini.ewallet.service;
 
 
+import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +15,6 @@ import com.capgemini.ewallet.entity.WalletUser;
 import com.capgemini.ewallet.dao.AccountDao;
 import com.capgemini.ewallet.dao.TransactionDao;
 import com.capgemini.ewallet.dao.UserDao;
-import com.capgemini.ewallet.entity.WalletUser;
 import com.capgemini.ewallet.entity.WalletAccount;
 import com.capgemini.ewallet.exception.EwalletException;
 
@@ -29,7 +31,6 @@ AccountDao accountdao;
 TransactionDao transferdao;
 
 
-@Override
 @Transactional(propagation = Propagation.REQUIRED)
 public String depositmoney(WalletAccount wallet, double amount) {
 
@@ -42,7 +43,6 @@ else
 return "Amount cannot be negative";
 }
 
-@Override
 public WalletUser showBalance(int userId) {
 // TODO Auto-generated method stub
 WalletUser user1 = userdao.findById(userId).orElse(new WalletUser());
@@ -73,7 +73,6 @@ throw new EwalletException("Account not found");
 wallet.setAccountBalance(amount);
 }
 
-@Override
 @Transactional(readOnly = true)
 public WalletAccount findAccount(int accountId) {
 
@@ -84,6 +83,18 @@ return acc.get();
 else
 throw new EwalletException("AccountId  not found!");
 
+}
+
+@Override
+public List<WalletAccount> viewAccount() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+@Override
+public void depositemoney(@Valid WalletAccount input) throws EwalletException {
+	// TODO Auto-generated method stub
+	
 }
 
 
