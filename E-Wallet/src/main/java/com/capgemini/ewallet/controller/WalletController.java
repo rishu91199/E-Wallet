@@ -1,6 +1,9 @@
 package com.capgemini.ewallet.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +27,10 @@ WalletServiceImpl WalletService;
 
 
 @PostMapping(value = "/depositmoney", consumes = { "application/json" })
-public String depositmoney(@RequestBody WalletAccount input) {
+public String depositmoney(@Valid @RequestBody WalletAccount input) {
 WalletAccount wallet = WalletService.findAccount(input.getAccountId());
 double amount = input.getAccountBalance();
+
 
 return WalletService.depositmoney(wallet, amount);
 }

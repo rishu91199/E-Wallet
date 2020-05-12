@@ -38,7 +38,7 @@ double new_balance = wallet.getAccountBalance() + amount;
 updateBalance(wallet.getAccountId(),new_balance);
 return "Balance added Successfully";
 }
-
+else
 return "Amount cannot be negative";
 }
 

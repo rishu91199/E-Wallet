@@ -27,11 +27,11 @@ public class WalletTransactions {
 	@Column(name="trans_id")
 	private int transactionId;
 	
-	@NotNull
+	@NotNull(message="can't be empty")
 	@Column(name="sender_id")
 	private int senderId;
 	
-	@NotNull
+	@NotNull(message="can't be empty")
 	@Column(name="receiver_id")
 	private int receiverId;
 	
@@ -50,7 +50,7 @@ public class WalletTransactions {
 	@Column(name="amt")
 	private Double amount;
 	
-	@NotEmpty
+	@NotEmpty(message="can't be empty")
 	@Min(value=1000)
 	@Column(name="acctBal")
 	private Double accountBalance;
