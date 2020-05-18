@@ -1,24 +1,24 @@
 package com.capgemini.ewallet.dto;
 
 public class ErrorInfo {
-	private String message;
+	private String messgae;
 
 	public ErrorInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ErrorInfo(String message) {
+	public ErrorInfo(String messgae) {
 		super();
-		this.message = message;
+		this.messgae = messgae;
 	}
 
-	public String getmessage() {
-		return message;
+	public String getMessgae() {
+		return messgae;
 	}
 
-	public void setmessage(String message) {
-		this.message = message;
+	public void setMessgae(String messgae) {
+		this.messgae = messgae;
 	}
 
 }

@@ -54,7 +54,7 @@ public ResponseEntity<String> depositmoney(@Valid @RequestBody WalletAccount inp
 	}
 	try {
 		ser.depositemoney(input);
-		return new ResponseEntity<String>("Amount added", HttpStatus);
+		return new ResponseEntity<String>("Amount added", HttpStatus.OK);
 		
 	}
 	catch(DataIntegrityViolationException ex) {
