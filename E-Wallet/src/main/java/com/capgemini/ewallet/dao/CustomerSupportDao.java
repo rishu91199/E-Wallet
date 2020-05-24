@@ -6,6 +6,8 @@ import com.capgemini.ewallet.entity.CustomerSupport;
 
 
 
+
+
 public interface CustomerSupportDao extends JpaRepository<CustomerSupport,Integer>  { 
 	
 	

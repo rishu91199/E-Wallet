@@ -1,5 +1,6 @@
 package com.capgemini.ewallet;
 
+
 import static springfox.documentation.builders.PathSelectors.regex;
 
 import org.modelmapper.ModelMapper;
@@ -17,11 +18,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 
-public class WalletConfiguration extends WebMvcConfigurationSupport {
+public class EwalletConfiguration extends WebMvcConfigurationSupport {
 	 @Bean
 	    public Docket version1() {
 	        return new Docket(DocumentationType.SWAGGER_2).select()
-	                .apis(RequestHandlerSelectors.basePackage("com.capgemini.ewallet.controller"))
+	                .apis(RequestHandlerSelectors.basePackage("com.capgemini.ewallet"))
 	                .paths(regex(".*" + ".*")).build().enable(true)
 	                .groupName("EWallet")
 	                .apiInfo(new ApiInfoBuilder().description("EWallet")

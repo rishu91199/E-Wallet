@@ -1,21 +1,17 @@
 package com.capgemini.ewallet.service;
 
-
-
 import java.util.List;
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.ewallet.entity.CustomerSupport;
 import com.capgemini.ewallet.dao.CustomerSupportDao;
-import com.capgemini.ewallet.exception.WalletUserException;
+import com.capgemini.ewallet.entity.CustomerSupport;
+
 
 
 @Service
-public class CustomerSupportImpl implements CustomerSupportService {
+public class CustomerSupportServiceImpl implements CustomerSupportService {
 	
 	
 	@Autowired

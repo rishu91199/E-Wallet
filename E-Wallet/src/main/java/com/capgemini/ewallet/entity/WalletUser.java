@@ -1,126 +1,150 @@
 package com.capgemini.ewallet.entity;
-import javax.persistence.*;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-
-
 @Entity
-@Table(name="walletuser")
-@DynamicUpdate(true)
-@DynamicInsert(true)
-public class WalletUser {
-	
+@Table(name = "walletuser")
+public class WalletUser implements Serializable {
+
 	@NotNull(message="User Id is Mandatory")
 	@Id
-	@Column(name="user_id")
+	@Column(name="userid")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="user_seq")
 	@SequenceGenerator(sequenceName="user_seq",initialValue=1000,allocationSize=1,name="user_seq")
-	private int userId;
-	
+	private int id;
+
 	@NotNull(message="UserName is Mandatory")
 	@Size(min=3,max=25,message="Length must be from 3 to 25 character ")
-	@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[ ]+[A-Za-z]+)", message="Only alphabets and space is allowed")
-	@Column(name="user_name",length=25)
-	private String userName;
-	
-	@NotNull(message="Password is Mandatory")
-	@Size(min=8,max=15,message="Length must be from 3 to 25 character ")
-	@Pattern(regexp = "(?=.*[0-9])", message = "Password must contain one digit.")
-	@Pattern(regexp = "(?=.*[a-z])", message = "Password must contain one lowercase letter.")
-	@Pattern(regexp = "(?=.*[A-Z])", message = "Password must contain one uppercase letter.")
-	@Pattern(regexp = "(?=\\S+$)", message = "Password must contain no whitespace.")
-	@Pattern(regexp="(?=.*[@#$%^&+=])",message="Password must contain one special character")
-	@Pattern(regexp=".{8,} ",message="Password must have atleast 8 character")
+	@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)", message="allow only alphabets and a blank scpace is allowed" )
+	@Column(name="username",length=25)
+	private String username;
+
+	@NotEmpty(message = "user password is mandatory")
 	@Column(name="password")
-	private String password;
-	
+	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,14}$")
+	private String pass;
+
 	@NotNull(message="Phone number is Mandatory")
 	@Size(max=10,message="Number must be of 10 digits")
+	@Column(name="phonenumber")
 	@Pattern(regexp="(^$|[0-9]{10})")
-	private String phoneNumber;
+	private String phone;
 	
 	@NotNull(message="Login Name is Mandatory")
 	@Size(min=3,max=25,message="Length can be betwwen 3 and 25 chars")
-	@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[][A-Za-z]+)",message="Only Alphabet and blank space is allowed")
-	@Column(name="login_name" ,length=25)
+	@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)", message="allow only alphabets and a blank scpace is allowed" )
+	@Column(name="loginname" ,length=25)
 	private String loginName;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "acc_Id",referencedColumnName="acc_id")
-	private WalletAccount walletaccount;
-	
-	
+	@JoinColumn(name = "accid")
+	private WalletAccount wallet;
+
 	public WalletUser() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	
 
-	public WalletUser(int userId,String userName,String password, String phoneNumber, String loginName) {
+	public WalletUser(@NotNull(message = "User Id is Mandatory") int id,
+			@NotNull(message = "UserName is Mandatory") @Size(min = 3, max = 25, message = "Length must be from 3 to 25 character ") @Pattern(regexp = "([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)", message = "allow only alphabets and a blank scpace is allowed") String username,
+			@NotEmpty(message = "user password is mandatory") @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,14}$") String pass,
+			@NotNull(message = "Phone number is Mandatory") @Size(max = 10, message = "Number must be of 10 digits") @Pattern(regexp = "(^$|[0-9]{10})") String phone,
+			@NotNull(message = "Login Name is Mandatory") @Size(min = 3, max = 25, message = "Length can be betwwen 3 and 25 chars") @Pattern(regexp = "([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)", message = "allow only alphabets and a blank scpace is allowed") String loginName,
+			WalletAccount wallet) {
 		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.password = password;
-		this.phoneNumber = phoneNumber;
+		this.id = id;
+		this.username = username;
+		this.pass = pass;
+		this.phone = phone;
 		this.loginName = loginName;
+		this.wallet = wallet;
 	}
 
-    public int getUserId() {
-		return userId;
+
+
+	public int getId() {
+		return id;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	
+
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPass() {
+		return pass;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
+
+	public WalletAccount getWallet() {
+		return wallet;
+	}
+
+	public void setWallet(WalletAccount wallet) {
+		this.wallet = wallet;
+	}
+	
 
 	public String getLoginName() {
 		return loginName;
 	}
 
+
+
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
 	}
-	public WalletAccount getWalleAccount() {
-		return walletaccount;
+
+
+
+	@Override
+	public String toString() {
+		return "WalletUser [id=" + id + ", username=" + username + ", pass=" + pass + ", phone=" + phone
+				+ ", loginName=" + loginName + ", wallet=" + wallet + "]";
 	}
 
-	public void setWallet(WalletAccount walletaccount) {
-		this.walletaccount = walletaccount;
-	}
 
 
+
+
+
+
+	
 }

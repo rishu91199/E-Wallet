@@ -1,48 +1,56 @@
 package com.capgemini.ewallet.entity;
 
-import java.util.List;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
-@Table(name="account")
-@DynamicUpdate(true)
-@DynamicInsert(true)
+@Table(name = "wallet")
 public class WalletAccount {
-	
+
 	@NotNull(message="AccountId is Mandatory")
 	@Id
-	@Column(name="acc_id")
+	@Column(name="accid")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="acc_seq")
 	@SequenceGenerator(sequenceName="acc_seq",initialValue=2020200000,allocationSize=1,name="acc_seq")
 	private int accountId;
-	
+
 	@NotNull(message="Balance is Mandatory")
 	@Min(value=1000, message= "Your Opening amount must be Rs. 1000")
-	private double accountBalance;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="user_id",referencedColumnName="user_id")
-	private WalletUser walletUser;
+	@Column(name="account_balance")
+	private double balance;
 
+	//@OneToOne(mappedBy = "wallet")
+	private WalletUser account;
+
+	
 	public WalletAccount() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
+	
 
-	public WalletAccount( int accountId, double accountBalance) {
+	public WalletAccount(@NotNull(message = "AccountId is Mandatory") int accountId,
+			@NotNull(message = "Balance is Mandatory") @Min(value = 1000, message = "Your Opening amount must be Rs. 1000") double balance,
+			WalletUser account) {
 		super();
 		this.accountId = accountId;
-		this.accountBalance = accountBalance;
+		this.balance = balance;
+		this.account = account;
+	}
+
+
+
+	public WalletAccount(double balance) {
+		super();
+		this.balance = balance;
 	}
 
 	public int getAccountId() {
@@ -53,22 +61,27 @@ public class WalletAccount {
 		this.accountId = accountId;
 	}
 
-	public double getAccountBalance() {
-		return accountBalance;
+	public double getBalance() {
+		return balance;
 	}
 
-	public void setAccountBalance(double accountBalance) {
-		this.accountBalance = accountBalance;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
-	public WalletUser getWalletUser() {
-		return walletUser;
+	public WalletUser getAccount() {
+		return account;
 	}
 
-	public void setWalletUser(WalletUser walletUser) {
-		this.walletUser = walletUser;
+	public void setAccount(WalletUser account) {
+		this.account = account;
 	}
 
+	@Override
+	public String toString() {
+		return "Wallet [accountId=" + accountId + ", balance=" + balance + ", account=" + account + "]";
+	}
+	
 	
 
 }
