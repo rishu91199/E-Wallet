@@ -6,12 +6,12 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.6.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.capgemini</groupId>
-	<artifactId>E-Wallet</artifactId>
+	<groupId>com.cg</groupId>
+	<artifactId>OnlineWallet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>E-Wallet</name>
+	<name>OnlineWallet</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -22,10 +22,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -44,6 +40,10 @@
 			<artifactId>modelmapper</artifactId>
 			<version>2.3.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -56,14 +56,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-		  <dependency>
+        <dependency>
 		<groupId>com.oracle</groupId>
 		<artifactId>ojdbc</artifactId>
 		<version>8</version>
 		<scope>system</scope>
 		<systemPath>C:\Users\lenovo\Downloads\ojdbc8 (1).jar</systemPath>
 	</dependency>
+		 
 
 	</dependencies>
 
@@ -75,5 +75,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 </project>
