@@ -45,6 +45,7 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	@Override
 	public String registerUser(WalletUser user) {
 		// TODO Auto-generated method stub
+		
 		if (onlineWalletDao.checkUserByEmail(user.getEmail()) == true)
 			throw new UnauthorizedAccessException("A User already exist with same email address");
 		WalletAccount account = new WalletAccount(0.00, null, status.active);
